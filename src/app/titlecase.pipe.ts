@@ -5,16 +5,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TitlecasePipe implements PipeTransform {
   transform(value: string, cantDecimal = 6): any {
-    if (!value) {
+    let record = String(value.trim());
+    if (!record) {
       return '';
     }
-    let record = String(value);
     if (record.length < cantDecimal) {
       return record;
     }
     const cant = record.length;
     let cad = record.substring(cant - cantDecimal, cant);
     let isDiferentCero = false;
+    console.log(cad)
     for (let i = cad.length - 1; i >= 2; i--) {
       const element = cad.charAt(i);
       if (element !== '0') {
@@ -23,9 +24,9 @@ export class TitlecasePipe implements PipeTransform {
       }
     }
     if (isDiferentCero) {
-      return value;
+      return record;
     } else {
-      for (let i = cad.length - 5; i >= 0; i--) {
+      for (let i = cad.length - (cantDecimal-1); i >= 0; i--) {
         const element = cad.charAt(i);
         if (element !== '0') {
           let newValue = record.substring(0, cant - (cantDecimal - 2));
@@ -33,6 +34,7 @@ export class TitlecasePipe implements PipeTransform {
         }
       }
     }
-    return record.substring(0, cant - cantDecimal);
+    // -1, representa el puntoDecimal
+    return record.substring(0, (cant - cantDecimal)-1);
   }
 }
