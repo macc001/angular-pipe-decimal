@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   name = 'pipe';
-  title = 'abcd000000         ';
+  // title = '1512135.1250000';
+  title = 1512135.125;
 }
